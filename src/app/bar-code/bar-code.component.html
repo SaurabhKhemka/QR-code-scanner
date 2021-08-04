@@ -1,53 +1,38 @@
-<div style="display: flow-root">
-  <mat-form-field appearance="fill">
-    <mat-select
-      (selectionChange)="onSelectionChange($event)"
-      placeholder="Select customer"
-    >
-      <mat-option *ngFor="let c of customers" [value]="c.name">
-        {{ c.name }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-
-  <button
-    mat-raised-button
-    color="primary"
-    (click)="ExportTOExcel()"
-    [disabled]="!dataSource.length"
-  >
-    Export as Excel
-  </button>
-  <div class="qr-scan-area" *ngIf="selectedCustomer?.value">
-    <zxing-scanner
-      [torch]="torchEnabled"
-      [device]="deviceCurrent"
-      (deviceChange)="onDeviceChange($event)"
-      (scanSuccess)="onCodeResult($event)"
-      [formats]="formatsEnabled"
-      [tryHarder]="tryHarder"
-      (permissionResponse)="onHasPermission($event)"
-      (camerasFound)="onCamerasFound($event)"
-      (torchCompatible)="onTorchCompatible($event)"
-    ></zxing-scanner>
-  </div>
+<barcode-scanner-livestream
+  type="code_128"
+  (valueChanges)="onValueChanges($event)"
+  (started)="(onStarted)"
+></barcode-scanner-livestream>
+<div [hidden]="!barcodeValue">
+  {{ barcodeValue1 }}
 </div>
 
-<div
-  class="example-container mat-elevation-z8"
-  #TABLE
-  *ngIf="dataSource.length"
+<!-- <ngx-barcode [bc-value]="barcodeValue1" [bc-display-value]="true"></ngx-barcode>
+
+<ngx-barcode6
+  [bc-format]="'CODE128'"
+  [bc-value]="'12345678901231'"
+  [bc-display-value]="true"
 >
-  <table mat-table #table [dataSource]="dataSource">
+</ngx-barcode6> -->
+
+<mat-form-field appearance="fill">
+  <mat-select
+    (selectionChange)="onSheetChange($event)"
+    placeholder="Select sheet"
+  >
+    <mat-option *ngFor="let sheet of sheets" [value]="sheet">
+      Sheet {{ sheet }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<div class="example-container mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource">
     <!-- Position Column -->
     <ng-container matColumnDef="slNo">
       <th mat-header-cell *matHeaderCellDef>Sl. No.</th>
       <td mat-cell *matCellDef="let element">{{ element.slNo }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="custName">
-      <th mat-header-cell *matHeaderCellDef>Customer Name</th>
-      <td mat-cell *matCellDef="let element">{{ element.custName }}</td>
     </ng-container>
 
     <!-- Name Column -->
@@ -102,9 +87,29 @@
       <td mat-cell *matCellDef="let element">{{ element.exclNo }}</td>
     </ng-container>
 
-    <ng-container matColumnDef="createdTime">
-      <th mat-header-cell *matHeaderCellDef>Created Time</th>
-      <td mat-cell *matCellDef="let element">{{ element.createdTime }}</td>
+    <ng-container matColumnDef="barcode">
+      <th mat-header-cell *matHeaderCellDef>Barcode</th>
+      <td mat-cell *matCellDef="let element">
+        <!-- <ngx-barcode
+          
+          [bc-value]="element.barcodeValue"
+          [bc-display-value]="true"
+          [bc-height]="50"
+          [bc-width]="1"
+          [bc-font-size]="10"
+        ></ngx-barcode> -->
+
+        <ngx-qrcode [value]="element.barcodeValue" cssClass="aclass">
+        </ngx-qrcode>
+
+        <!-- <ngx-barcode6
+          [bc-format]="'CODE128'"
+          [bc-value]="element.barcodeValue"
+          [bc-display-value]="true"
+          [bc-height]="50"
+        >
+        </ngx-barcode6> -->
+      </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
@@ -112,20 +117,6 @@
   </table>
 </div>
 
-<!-- Displays message on the screen if guest is valid or not -->
-<!-- <div class="guest">
-  <ng-container *ngIf="guestExist">
-    <div class="ui success message">
-      <i class="close icon"></i>
-      <div class="header">Welcome!!</div>
-      <p>Guest has been found on the guest lists</p>
-    </div>
-  </ng-container>
-  <ng-container #notFound *ngIf="guestExist === false">
-    <div class="ui negative message">
-      <i class="close icon"></i>
-      <div class="header">Warning!</div>
-      <p>This person is not a guest!</p>
-    </div>
-  </ng-container>
-</div> -->
+<!-- Copyright 2021 Google LLC. All Rights Reserved.
+    Use of this source code is governed by an MIT-style license that
+    can be found in the LICENSE file at http://angular.io/license -->

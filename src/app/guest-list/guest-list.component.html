@@ -6,6 +6,10 @@
         <td data-label="lastName">{{ g.lastName }}</td>
         <td data-label="qr" *ngIf="g.qr">
           <ngx-qrcode [value]="g.qr" cssClass="aclass"> </ngx-qrcode>
+          <ngx-barcode
+            [bc-value]="g.qr"
+            [bc-display-value]="true"
+          ></ngx-barcode>
           <!-- <ngx-qrcode
             [qrc-element-type]="elementType"
             [qrc-value]="g.qr"

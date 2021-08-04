@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CallingComponent } from './calling/calling.component';
+import { BarCodeComponent } from './bar-code/bar-code.component';
 import { GuestListComponent } from './guest-list/guest-list.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { ScannerComponent } from './scanner/scanner.component';
@@ -8,7 +8,7 @@ import { ScannerComponent } from './scanner/scanner.component';
 const routes: Routes = [
   {
     path: '',
-    component: CallingComponent,
+    component: BarCodeComponent, //CallingComponent,
   },
   {
     path: 'registration',

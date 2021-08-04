@@ -1,8 +1,8 @@
 ::ng-deep .qr-scan-area {
   position: relative;
 }
-::ng-deep .qr-scan-area zxing-scanner {
-  max-width: 100%;
+::ng-deep .qr-scan-area {
+  width: 100%;
 }
 
 ::ng-deep .qr-scan-area zxing-scanner .qr-area {
@@ -18,4 +18,25 @@
   height: 200px;
   width: 200px;
   border: 2px solid red;
+}
+
+a {
+  font-size: 20px;
+  margin-top: 20px;
+  display: block;
+}
+
+.example-container {
+  height: 400px;
+  overflow: auto;
+}
+
+table {
+  width: 100%;
+}
+
+th.mat-header-cell,
+td.mat-cell,
+td.mat-footer-cell {
+  padding: 0 10px;
 }

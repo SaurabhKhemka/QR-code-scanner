@@ -1,0 +1,20 @@
+a {
+  font-size: 20px;
+  margin-top: 20px;
+  display: block;
+}
+
+.example-container {
+  height: 400px;
+  overflow: auto;
+}
+
+table {
+  width: 100%;
+}
+
+th.mat-header-cell,
+td.mat-cell,
+td.mat-footer-cell {
+  padding: 0 10px;
+}
